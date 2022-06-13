@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -31,8 +32,9 @@ public class GuestBookController {
 		return "redirect:/addList";
 	}
 	
-	@RequestMapping(value="/deleteForm", method= {RequestMethod.GET, RequestMethod.POST})
-	public String deleteForm() {
+	@RequestMapping(value="/deleteForm/{no}", method= {RequestMethod.GET, RequestMethod.POST})
+	public String deleteForm(Model model, @PathVariable("no") int no) {
+		model.addAttribute("no", no);
 		return "/WEB-INF/views/deleteForm.jsp";
 	}
 	

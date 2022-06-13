@@ -32,7 +32,7 @@
 					<td style="width:30px">${g.no}</td>
 					<td style="width:100px">${g.name}</td>
 					<td style="width:220px">${g.regDate}</td>
-					<td style="width:50px"><a href="./deleteForm?no=${g.no}">[삭제]</a></td>
+					<td style="width:50px"><a href="./deleteForm/${g.no}">[삭제]</a></td>
 				</tr>
 				<tr>
 					<td colspan="4">${g.content}</td>
