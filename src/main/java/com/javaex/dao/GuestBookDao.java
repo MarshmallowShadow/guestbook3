@@ -121,7 +121,7 @@ public class GuestBookDao {
 
 
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, "YYYY-MM-DD HH:MM:SS");
+			pstmt.setString(1, "YYYY-MM-DD HH24:MM:SS");
 
 			rs = pstmt.executeQuery();
 
