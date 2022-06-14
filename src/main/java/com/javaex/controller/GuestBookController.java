@@ -2,6 +2,7 @@ package com.javaex.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,26 +11,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.javaex.dao.GuestBookDao;
+import com.javaex.service.GuestBookService;
 import com.javaex.vo.GuestVo;
 
 @Controller
 public class GuestBookController {
+	@Autowired
+	private GuestBookService gService;
+	
 	//리스트 목록
 	@RequestMapping(value="/addList", method={RequestMethod.GET, RequestMethod.POST})
 	public String addList(Model model) {
+		//System.out.println("Controller action: addList");
+		
 		GuestBookDao gDao = new GuestBookDao();
-		List<GuestVo> gLIst = gDao.getList();
+		List<GuestVo> gList = gService.getList();
 		
-		model.addAttribute("gList", gLIst);
+		model.addAttribute("gList", gList);
 		
-		return "WEB-INF/views/addList.jsp";
+		return "addList";
 	}
 	
 	//글 추가
 	@RequestMapping(value="/add", method= {})
 	public String add(@ModelAttribute GuestVo gVo) {
+		//System.out.println("Controller action: add");
+		
 		GuestBookDao gDao = new GuestBookDao();
-		gDao.insert(gVo);
+		gService.insert(gVo);
 		
 		return "redirect:/addList";
 	}
@@ -37,20 +46,22 @@ public class GuestBookController {
 	//삭제 폼
 	@RequestMapping(value="/deleteForm/{no}", method= {RequestMethod.GET, RequestMethod.POST})
 	public String deleteForm(Model model, @PathVariable("no") int no) {
+		//System.out.println("Controller action: deleteForm");
+		
 		//번호 모델에 저장 (RequestParam쓰면은 이렇게 안해도 된다?)
 		model.addAttribute("no", no);
-		return "/WEB-INF/views/deleteForm.jsp";
+		return "deleteForm";
 	}
 	
 	//삭제
 	@RequestMapping(value="/delete", method= {RequestMethod.GET, RequestMethod.POST})
 	public String delete(@ModelAttribute GuestVo gVo) {
-		System.out.println("Controller received: delete");
+		//System.out.println("Controller action: delete");
 		
 		GuestBookDao gDao = new GuestBookDao();
 		int no = gVo.getNo();
 		String password = gVo.getPassword();
-		int confirm = gDao.delete(no, password);
+		int confirm = gService.delete(no, password);
 		
 		if(confirm > 0) { //삭제 성공일 경우 메인으로 돌아가기
 			return "redirect:/addList";
