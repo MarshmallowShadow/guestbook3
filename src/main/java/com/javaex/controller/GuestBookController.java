@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.javaex.dao.GuestBookDao;
 import com.javaex.service.GuestBookService;
 import com.javaex.vo.GuestVo;
 
 @Controller
 public class GuestBookController {
+	
 	@Autowired
 	private GuestBookService gService;
 	
@@ -24,7 +24,6 @@ public class GuestBookController {
 	public String addList(Model model) {
 		//System.out.println("Controller action: addList");
 		
-		GuestBookDao gDao = new GuestBookDao();
 		List<GuestVo> gList = gService.getList();
 		
 		model.addAttribute("gList", gList);
@@ -37,7 +36,6 @@ public class GuestBookController {
 	public String add(@ModelAttribute GuestVo gVo) {
 		//System.out.println("Controller action: add");
 		
-		GuestBookDao gDao = new GuestBookDao();
 		gService.insert(gVo);
 		
 		return "redirect:/addList";
@@ -58,7 +56,6 @@ public class GuestBookController {
 	public String delete(@ModelAttribute GuestVo gVo) {
 		//System.out.println("Controller action: delete");
 		
-		GuestBookDao gDao = new GuestBookDao();
 		int no = gVo.getNo();
 		String password = gVo.getPassword();
 		int confirm = gService.delete(no, password);

@@ -14,8 +14,18 @@ public class GuestBookService {
 	@Autowired
 	private GuestBookDao gDao;
 	
-	public static List<GuestVo> getList(){
+	public List<GuestVo> getList(){
 		List<GuestVo> gList = gDao.getList();
 		return gList;
+	}
+	public int insert(GuestVo gVo) {
+		int count = -1;
+		count = gDao.insert(gVo);
+		return count;
+	}
+	public int delete(int no, String password) {
+		int count = -1;
+		count = gDao.delete(no, password);
+		return count;
 	}
 }
