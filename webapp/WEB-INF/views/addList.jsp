@@ -8,7 +8,7 @@
 		<title>GuestBook</title>
 	</head>
 	<body>
-		<form action="./add" method="post">
+		<form action="/guestbook3/add" method="post">
 			<table border="1" style="width:400px">
 				<tr>
 					<td>이름</td>
@@ -32,7 +32,7 @@
 					<td style="width:30px">${g.no}</td>
 					<td style="width:100px">${g.name}</td>
 					<td style="width:220px">${g.regDate}</td>
-					<td style="width:50px"><a href="./deleteForm/${g.no}">[삭제]</a></td>
+					<td style="width:50px"><a href="/guestbook3/deleteForm/${g.no}">[삭제]</a></td>
 				</tr>
 				<tr>
 					<td colspan="4">${g.content}</td>
